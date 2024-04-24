@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.17'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+//부모 프로젝트에서는 하위 자녀들이 어떠한 프로젝트를 쓸지 지정.
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+//boot-jar 파일이 생성되지 않도록 설정. (두 파일로 패키징 하지 않음.)
+bootJar{
+    enabled = false
+}
+
+jar{
+    enabled = false
+}
+
