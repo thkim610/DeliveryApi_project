@@ -29,6 +29,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+    //JPA 사용
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
     //db 모듈을 가져다 사용하겠다는 의미
     //서로 다른 프로젝트에서 서로 다른 패키지의 내용을 참조해서 쓸수 있도록 함.(멀티모듈)
     implementation project(':db')
