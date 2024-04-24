@@ -37,3 +37,12 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+bootJar{
+    enabled = true
+}
+
+//스프링 부트로 실행되기 때문에 false로 설정.
+jar{
+    enabled = false
+}
