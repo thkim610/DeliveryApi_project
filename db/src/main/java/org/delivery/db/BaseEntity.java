@@ -1,7 +1,9 @@
 package org.delivery.db;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.OnDelete;
 
@@ -11,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @SuperBuilder
 public class BaseEntity {
