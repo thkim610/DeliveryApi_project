@@ -9,7 +9,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> { // <�
 
     //회원 조회
     //select * from user where id = ? and status = ? order by id desc limit 1
-    Optional<UserEntity> findFirstByIdAAndStatusOrderByIdDesc(Long id, UserStatus status);
+    Optional<UserEntity> findFirstByIdAndStatusOrderByIdDesc(Long id, UserStatus status);
 
     //로그인 (이메일, 패스워드 조회)
     //select * from user where email = ? and password = ? and status = ? order by id desc limit 1
