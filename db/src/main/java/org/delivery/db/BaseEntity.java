@@ -1,11 +1,9 @@
 package org.delivery.db;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.OnDelete;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
