@@ -36,6 +36,12 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
     implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.7.0'
 
+    //jwt 토큰 사용
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+
+
 
     //db 모듈을 가져다 사용하겠다는 의미
     //서로 다른 프로젝트에서 서로 다른 패키지의 내용을 참조해서 쓸수 있도록 함.(멀티모듈)
