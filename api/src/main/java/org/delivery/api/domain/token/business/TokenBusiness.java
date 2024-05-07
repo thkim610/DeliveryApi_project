@@ -41,4 +41,10 @@ public class TokenBusiness {
                 .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT));
 
     }
+
+    //클라이언트로부터 받은 토큰 검증
+    public Long validationAccessToken(String accessToken){
+        Long userId = tokenService.validationToken(accessToken);
+        return userId;
+    }
 }
