@@ -8,6 +8,7 @@ import org.delivery.api.domain.user.controller.model.UserLoginRequest;
 import org.delivery.api.domain.user.controller.model.UserRegisterRequest;
 import org.delivery.api.domain.user.controller.model.UserResponse;
 import org.delivery.api.domain.user.converter.UserConverter;
+import org.delivery.api.domain.user.model.User;
 import org.delivery.api.domain.user.service.UserService;
 import org.delivery.db.user.UserEntity;
 
@@ -63,9 +64,9 @@ public class UserBusiness {
 
     }
 
-    public UserResponse me(Long userId) {
-        UserEntity userEntity = userService.getUserWithThrow(userId);
-        UserResponse response = userConverter.toResponse(userEntity);
+    public UserResponse me(User user) {
+        //UserEntity userEntity = userService.getUserWithThrow(user.getId());
+        UserResponse response = userConverter.toResponse(user);
 
         return response;
     }
