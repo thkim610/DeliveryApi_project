@@ -42,9 +42,16 @@ public class UserService {
         return entity;
     }
 
+    //이메일, 비밀번호를 통한 회원 엔티티 조회
     public UserEntity getUserWithThrow(String email, String password){
         return userRepository.findFirstByEmailAndPasswordAndStatusOrderByIdDesc(
                 email, password, UserStatus.REGISTERED
         ).orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
+    }
+
+    //userId를 통한 회원 엔티티 조회 (오버로딩)
+    public UserEntity getUserWithThrow(Long userId) {
+        return userRepository.findFirstByIdAndStatusOrderByIdDesc(userId, UserStatus.REGISTERED)
+                .orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
     }
 }
