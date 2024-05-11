@@ -1,4 +1,4 @@
-package org.delivery.api.domain.user.business;
+package org.delivery.api.domain.store.business;
 
 import lombok.RequiredArgsConstructor;
 import org.delivery.api.common.annotation.Business;
