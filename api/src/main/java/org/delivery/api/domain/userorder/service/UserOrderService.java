@@ -46,7 +46,7 @@ public class UserOrderService {
                     it.setStatus(UserOrderStatus.ORDER);
                     it.setOrderedAt(LocalDateTime.now()); //주문한 현재 시간
 
-                    return it;
+                    return userOrderRepository.save(it);
                 })
                 .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT, "UserOrderEntity Null"));
     }
