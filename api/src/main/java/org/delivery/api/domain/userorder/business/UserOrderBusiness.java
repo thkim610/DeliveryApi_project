@@ -147,7 +147,7 @@ public class UserOrderBusiness {
     //주문 1건에 대한 조회
     public UserOrderDetailResponse read(User user, Long orderId) {
         //현재 주문 건 가져오기
-        UserOrderEntity userOrderEntity = userOrderService.getUserOrderWithThrow(orderId, user.getId());
+        UserOrderEntity userOrderEntity = userOrderService.getUserOrderWithOutStatusWithThrow(orderId, user.getId());
 
         //사용자 주문 id를 통해 사용자 주문 메뉴리스트 가져오기
         //TODO 리팩토링 필요 중복 코드 발생.
