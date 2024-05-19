@@ -146,5 +146,29 @@ public class UserOrderBusiness {
 
     //주문 1건에 대한 조회
     public UserOrderDetailResponse read(User user, Long orderId) {
+        //현재 주문 건 가져오기
+        UserOrderEntity userOrderEntity = userOrderService.getUserOrderWithThrow(orderId, user.getId());
+
+        //사용자 주문 id를 통해 사용자 주문 메뉴리스트 가져오기
+        //TODO 리팩토링 필요 중복 코드 발생.
+        List<UserOrderMenuEntity> userOrderMenuList = userOrderMenuService.getUserOrderMenu(userOrderEntity.getId());
+        //사용자 주문 메뉴리스트에서 가게 메뉴 상세 리스트 가져오기
+        List<StoreMenuEntity> storeMenuList = userOrderMenuList.stream()
+                .map(userOrderMenuEntity -> {
+
+                    StoreMenuEntity storeMenuEntity = storeMenuService.getStoreMenuWithThrow(userOrderMenuEntity.getStoreMenuId());
+                    return storeMenuEntity;
+                })
+                .collect(Collectors.toList());
+
+        //사용자가 주문한 가게 정보 가져오기
+        //TODO 리팩토링 필요 : get()에 대한 nullpoint 처리
+        StoreEntity storeEntity = storeService.getStoreWithThrow(storeMenuList.stream().findFirst().get().getStoreId());
+
+        return UserOrderDetailResponse.builder()
+                .userOrderResponse(userOrderConverter.toResponse(userOrderEntity))
+                .storeMenuResponseList(storeMenuConverter.toResponse(storeMenuList))
+                .storeResponse(storeConverter.toResponse(storeEntity))
+                .build();
     }
 }
