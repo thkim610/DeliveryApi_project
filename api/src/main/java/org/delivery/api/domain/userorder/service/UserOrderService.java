@@ -26,7 +26,7 @@ public class UserOrderService {
 
     //특정 사용자의 특정 주문 조회
     public UserOrderEntity getUserOrderWithThrow(Long id, Long userId){
-
+        //오류 발생
         Optional<UserOrderEntity> userOrderEntity = userOrderRepository.findFirstByIdAndStatusAndUserId(id, UserOrderStatus.REGISTERED, userId);
 
         return userOrderEntity.orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT, "UserOrderEntity Null"));
