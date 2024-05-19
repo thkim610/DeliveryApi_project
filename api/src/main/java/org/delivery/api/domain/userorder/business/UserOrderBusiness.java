@@ -110,7 +110,38 @@ public class UserOrderBusiness {
 
     //과거에 주문한 내역 조회
     public List<UserOrderDetailResponse> history(User user) {
+        //과거 사용자가 주문한 리스트
+        List<UserOrderEntity> UserOrderEntityList = userOrderService.history(user.getId());
 
+        //과거 주문 리스트에서 상세 주문 정보 리스트 생성
+        //TODO 리팩토링 필요 중복 코드 발생.
+        List<UserOrderDetailResponse> userOrderDetailResponseList = UserOrderEntityList.stream()
+                //주문 1건씩 처리
+                .map(it -> {
+                    //사용자 주문 id를 통해 사용자 주문 메뉴리스트 가져오기
+                    List<UserOrderMenuEntity> userOrderMenuList = userOrderMenuService.getUserOrderMenu(it.getId());
+                    //사용자 주문 메뉴리스트에서 가게 메뉴 상세 리스트 가져오기
+                    List<StoreMenuEntity> storeMenuList = userOrderMenuList.stream()
+                            .map(userOrderMenuEntity -> {
+
+                                StoreMenuEntity storeMenuEntity = storeMenuService.getStoreMenuWithThrow(userOrderMenuEntity.getStoreMenuId());
+
+                                return storeMenuEntity;
+                            })
+                            .collect(Collectors.toList());
+
+                    //사용자가 주문한 가게 정보 가져오기
+                    //TODO 리팩토링 필요 : get()에 대한 nullpoint 처리
+                    StoreEntity storeEntity = storeService.getStoreWithThrow(storeMenuList.stream().findFirst().get().getStoreId());
+
+                    return UserOrderDetailResponse.builder()
+                            .userOrderResponse(userOrderConverter.toResponse(it))
+                            .storeMenuResponseList(storeMenuConverter.toResponse(storeMenuList))
+                            .storeResponse(storeConverter.toResponse(storeEntity))
+                            .build();
+                }).collect(Collectors.toList());
+
+        return userOrderDetailResponseList;
     }
 
     //주문 1건에 대한 조회
