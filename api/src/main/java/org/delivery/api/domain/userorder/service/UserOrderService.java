@@ -23,10 +23,15 @@ public class UserOrderService {
         return userOrderRepository.findAllByUserIdAndStatusOrderByIdDesc(userId, UserOrderStatus.REGISTERED);
     }
 
+    //특정 사용자의 특정 주문 조회 (Status 없이 조회)
+    public UserOrderEntity getUserOrderWithOutStatusWithThrow(Long id, Long userId){
+        Optional<UserOrderEntity> userOrderEntity = userOrderRepository.findFirstByIdAndUserId(id, userId);
+
+        return userOrderEntity.orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT, "UserOrderEntity Null"));
+    }
 
     //특정 사용자의 특정 주문 조회
     public UserOrderEntity getUserOrderWithThrow(Long id, Long userId){
-
         Optional<UserOrderEntity> userOrderEntity = userOrderRepository.findFirstByIdAndStatusAndUserId(id, UserOrderStatus.REGISTERED, userId);
 
         return userOrderEntity.orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT, "UserOrderEntity Null"));
